@@ -2,4 +2,6 @@ python -m venv .venv
 
 source .venv/Scripts/activate
 
-pip i install numpy pandas matplotlib seaborn
+pip install numpy pandas matplotlib seaborn
+
+pip install chardet
