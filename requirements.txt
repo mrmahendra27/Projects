@@ -5,3 +5,7 @@ source .venv/Scripts/activate
 pip install numpy pandas matplotlib seaborn
 
 pip install chardet
+
+pip install fredapi
+
+pip install plotly
