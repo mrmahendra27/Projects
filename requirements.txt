@@ -9,3 +9,7 @@ pip install chardet
 pip install fredapi
 
 pip install plotly
+
+pip install praw
+
+pip install scrapy

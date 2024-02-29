@@ -1,0 +1,24 @@
+GOOGLE_API_KEY='AIzaSyBNMj0oLRYsT4SYrZ0CA0hv1kGyFF55y8E'
+
+client_id="sSh0OIntn8Ct2FfILbggKw",
+client_secret="Uc350RlSrltwOCU9-Fbn2aWo2QvYUQ",
+user_agent="RCrawlerby/u/andugundu99",
+username="andugundu99",
+password="AnduRedditGundu@7",
+
+
+username="andugundu99"
+# password: During the preliminary setup this field will be used to login. Later you'll receive a refresh_token which will replace password
+password="AnduRedditGundu@7"
+# client_id: your client_id can be acquired from reddit by visiting https://www.reddit.com/prefs/apps and setting up the script app
+client_id="sSh0OIntn8Ct2FfILbggKw" 
+# client_secret: client_secret is also acquired by visiting the above mentioned URL and setting up a reddit app
+client_secret="Uc350RlSrltwOCU9-Fbn2aWo2QvYUQ"
+# refresh_token: refresh_token will be acquired later once you've proceeded through the Oauth2 verification process
+# refresh_token=""
+# same as  refresh token
+# access_token=""
+# redirect_uri: While completing the Oauth steps you'll be redirected to this URL. 
+redirect_url="http://localhost:8080"
+# user_agent: Each bot must have a unique user_agent string. Be descriptive and don't use words like 'bot' or 'scrape'
+user_agent="RCrawlerby/u/andugundu99"
