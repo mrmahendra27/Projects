@@ -17,5 +17,5 @@ pyvenv.cfg
 /lib
 /lib64
 
-/important.text
+/important.txt
 .venv
