@@ -8,8 +8,14 @@ pip install chardet
 
 pip install fredapi
 
+pip install beautifulsoup4
+
 pip install plotly
 
 pip install praw
 
 pip install scrapy
+
+pip install pyarrow
+
+pip install openpyxl

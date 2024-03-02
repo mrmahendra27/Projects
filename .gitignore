@@ -9,6 +9,8 @@
 
 *.json
 *.csv
+*.xlsx
+*.sql
 *.db
 *.log
 pyvenv.cfg
