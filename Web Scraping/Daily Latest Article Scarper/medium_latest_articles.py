@@ -45,8 +45,8 @@ def send_mail(article_lists: list):
     day_of_week = today.strftime("%A")
 
     subject = f"Latest Articles on {topic} for {date}"
-    sender_email = "mailtrap@example.com"
-    receiver_email = "new@example.com"
+    sender_email = "no-reply@example.com"
+    receiver_email = "test@example.com"
 
     message = MIMEMultipart()
     message["From"] = sender_email
