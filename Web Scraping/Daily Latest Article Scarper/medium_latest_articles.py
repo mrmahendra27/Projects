@@ -37,8 +37,8 @@ def convert_and_store_data(article_lists: list):
 def send_mail(article_lists: list):
     port = 2525
     smtp_server = "sandbox.smtp.mailtrap.io"
-    username = "b256ab85edee9c"
-    password = "e51d04fea2c193"
+    username = ""
+    password = ""
 
     today = datetime.datetime.now()
     date = today.strftime("%d-%m-%Y")
