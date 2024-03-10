@@ -2,20 +2,10 @@ python -m venv .venv
 
 source .venv/Scripts/activate
 
-pip install numpy pandas matplotlib seaborn
+pip install numpy pandas matplotlib seaborn 
 
-pip install chardet
+pip install chardet fredapi beautifulsoup4 plotly praw scrapy pyarrow openpyxl 
 
-pip install fredapi
+pip install python-dotenv fastapi uvicorn sqlmodel SQLAlchemy psycopg2 strawberry-graphql[fastapi]
 
-pip install beautifulsoup4
-
-pip install plotly
-
-pip install praw
-
-pip install scrapy
-
-pip install pyarrow
-
-pip install openpyxl
+pip install sqlmodel asyncpg
