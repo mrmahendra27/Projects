@@ -6,7 +6,7 @@ class NoteType:
     name: str
     description: str
 
-@strawberry.type
+@strawberry.input
 class NoteInput:
     name: str
     description: str

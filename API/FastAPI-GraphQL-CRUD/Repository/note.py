@@ -1,4 +1,4 @@
-from ..Model.note import Note
+from Model.note import Note
 from config import db
 
 from sqlalchemy.sql import select
@@ -19,21 +19,21 @@ class NoteRespository:
         async with db as session:
             statement = select(Note).where(Note.id == id)
             result = await session.execute(statement)
-            return result.scalars.first()
+            return result.scalars().first()
 
     @staticmethod
     async def get_all():
         async with db as session:
             statement = select(Note)
             result = await session.execute(statement)
-            return result.scalars.all()
+            return result.scalars().all()
 
     @staticmethod
     async def update(id: int, note_data: Note):
         async with db as session:
             statement = select(Note).where(Note.id == id)
             result = await session.execute(statement)
-            note = result.scalars.first()
+            note = result.scalars().first()
 
             note.name = note_data.name
             note.description = note_data.description

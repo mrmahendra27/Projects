@@ -10,11 +10,14 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
 
 file_path = "medium_latest_articles.xlsx"
 topic = "Artificial Intelligence"
 website_url = "https://medium.com/"
 website_name = "Medium"
+
+load_dotenv()
 
 logging.basicConfig(
     filename="medium_latest_articles.log",
@@ -24,88 +27,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def convert_and_store_data(article_lists: list):
-    df = pd.DataFrame(data=article_lists)
-    df.to_excel(
-        file_path,
-        index=False,
-    )
-
-    logger.info("Data converted and stored in Excel")
-
-
-def send_mail(article_lists: list):
-    port = 2525
-    smtp_server = "sandbox.smtp.mailtrap.io"
-    username = ""
-    password = ""
-
-    today = datetime.datetime.now()
-    date = today.strftime("%d-%m-%Y")
-    day_of_week = today.strftime("%A")
-
-    subject = f"Latest Articles on {topic} for {date}"
-    sender_email = "no-reply@example.com"
-    receiver_email = "test@example.com"
-
-    message = MIMEMultipart()
-    message["From"] = sender_email
-    message["To"] = receiver_email
-    message["Subject"] = subject
-
-    # Add body to email
-    html_body = f"""
-    <html>
-    <body>
-        <p>Hi Mahendra,</p>
-        <p>Happy {day_of_week}! ☀️</p>
-        <p>This is our daily update with some of the latest and most interesting articles on <b>{topic}</b> from <a href="{website_url}">{website_name}</a></p>
-        <ul>
-    """
-
-    for article_list in article_lists:
-        html_body += f"""<li><a href="{article_list["Link"]}">{article_list["Title"]}</a>: {article_list["Title"]}</li>"""
-
-    html_body += f"""
-        </ul>
-        
-        <p>The attachment with the article details has been attached below.</p>
-        <p>We hope you enjoy reading these articles!</p>
-        <p>Have a great day!</p>
-        <p>Best regards,</p>
-        <p>The Team at Scraper</p>
-    </body>
-    </html>
-    """
-    message.attach(MIMEText(html_body, "html"))
-
-    # We assume that the file is in the directory where you run your Python script from
-    with open(file_path, "rb") as attachment:
-        # The content type "application/octet-stream" means that a MIME attachment is a binary file
-        part = MIMEBase("application", "octet-stream")
-        part.set_payload(attachment.read())
-
-    # Encode to base64
-    encoders.encode_base64(part)
-
-    # Add header
-    part.add_header(
-        "Content-Disposition",
-        f"attachment; filename= {file_path}",
-    )
-
-    # Add attachment to your message and convert it to string
-    message.attach(part)
-    text = message.as_string()
-
-    # send your email
-    with smtplib.SMTP(smtp_server, port) as server:
-        server.login(username, password)
-        server.sendmail(sender_email, receiver_email, text)
-
-    logger.info("Mail Sent Successfully!")
-
-
+# Scrap the Latest Articles
 def scrap_latest_articles(url: str, headers: dict):
     try:
         response = requests.get(url, headers=headers)
@@ -158,6 +80,92 @@ def scrap_latest_articles(url: str, headers: dict):
                     logger.info("Process Completed")
     except Exception as e:
         logger.error({"Error": e})
+
+
+# Convert the data into dataframe and store it into excel format
+def convert_and_store_data(article_lists: list):
+    df = pd.DataFrame(data=article_lists)
+    df.to_excel(
+        file_path,
+        index=False,
+    )
+
+    logger.info("Data converted and stored in Excel")
+
+
+# Send mail to user
+def send_mail(article_lists: list):
+    # Load the credentials from env
+    host = os.getenv("SMTP_HOST")
+    port = os.getenv("SMTP_PORT")
+    username = os.getenv("SMTP_USERNAME")
+    password = os.getenv("SMTP_PASSWORD")
+    
+    # Get Date and Day of Week
+    today = datetime.datetime.now()
+    date = today.strftime("%d-%m-%Y")
+    day_of_week = today.strftime("%A")
+
+    subject = f"Latest Articles on {topic} for {date}"
+    sender_email = "no-reply@example.com"
+    receiver_email = "mr.mahendra2799@gmail.com"
+
+    # Create Multipart Message
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+
+    # Add body to email
+    html_body = f"""
+    <html>
+    <body>
+        <p>Hi Mahendra,</p>
+        <p>Happy {day_of_week}! ☀️</p>
+        <p>This is our daily update with some of the latest and most interesting articles on <b>{topic}</b> from <a href="{website_url}">{website_name}</a></p>
+        <ul>
+    """
+
+    for article_list in article_lists:
+        html_body += f"""<li><a href="{article_list["Link"]}">{article_list["Title"]}</a>: {article_list["Title"]}</li>"""
+
+    html_body += f"""
+        </ul>
+        
+        <p>The attachment with the article details has been attached below.</p>
+        <p>We hope you enjoy reading these articles!</p>
+        <p>Have a great day!</p>
+        <p>Best regards,</p>
+        <p>The Team at Scraper</p>
+    </body>
+    </html>
+    """
+    message.attach(MIMEText(html_body, "html"))
+
+    # We assume that the file is in the directory where you run your Python script from
+    with open(file_path, "rb") as attachment:
+        # The content type "application/octet-stream" means that a MIME attachment is a binary file
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attachment.read())
+
+    # Encode to base64
+    encoders.encode_base64(part)
+
+    # Add header
+    part.add_header(
+        "Content-Disposition",
+        f"attachment; filename= {file_path}",
+    )
+
+    # Add attachment to your message and convert it to string
+    message.attach(part)
+    text = message.as_string()
+
+    # send your email
+    with smtplib.SMTP(host, port) as server:
+        server.login(username, password)
+        server.sendmail(sender_email, receiver_email, text)
+        logger.info("Mail Sent Successfully!")
 
 
 if __name__ == "__main__":
