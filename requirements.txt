@@ -9,3 +9,5 @@ pip install chardet fredapi beautifulsoup4 plotly praw scrapy pyarrow openpyxl
 pip install python-dotenv fastapi uvicorn sqlmodel SQLAlchemy psycopg2 strawberry-graphql[fastapi]
 
 pip install sqlmodel asyncpg
+
+pip install Flask transformers
